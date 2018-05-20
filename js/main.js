@@ -4,16 +4,16 @@
 //  Globals
 // --------------
 
-var KEYWORDS = ['sad', 'happy', 'angry', 'indifferent', 'animal', 'weird', 'evil'];
+var KEYWORDS = ['ruggeri'];
 
 var gImgs = [
-    { id: 0, url: './img/putin.jpg', keywords: ['indifferent', 'evil'], fontSize: 40 },
-    { id: 1, url: './img/leo.jpg', keywords: ['happy'], fontSize: 40 },
-    { id: 2, url: './img/patrick.jpg', keywords: ['weird', 'happy'], fontSize: 40 },
-    { id: 3, url: './img/pope.jpg', keywords: ['emotional', 'weird'], fontSize: 40 },
-    { id: 4, url: './img/pug.jpg', keywords: ['sad', 'emotional'], fontSize: 40 },
-    { id: 5, url: './img/drevil.jpg', keywords: ['evil'], fontSize: 40 },
-    // { id: 6, url: 'img/trump.jpg', keywords: ['evil'], fontSize: 40 },
+    { id: 0, url: './img/ruggeri/ruggeri-1.png', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 1, url: './img/ruggeri/ruggeri-2.png', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 2, url: './img/ruggeri/ruggeri-3.png', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 3, url: './img/ruggeri/ruggeri-4.png', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 4, url: './img/ruggeri/ruggeri-5.png', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 5, url: './img/ruggeri/ruggeri-6.png', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 6, url: './img/ruggeri/ruggeri-7.png', keywords: ['ruggeri'], fontSize: 40 },
 ];
 
 var gMeme = {

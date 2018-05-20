@@ -1,0 +1,338 @@
+'use strict';
+
+// --------------
+//  Globals
+// --------------
+
+var KEYWORDS = ['sad', 'happy', 'angry', 'indifferent', 'animal', 'weird', 'evil'];
+
+var gImgs = [
+    { id: 0, url: './img/putin.jpg', keywords: ['indifferent', 'evil'], fontSize: 40 },
+    { id: 1, url: './img/leo.jpg', keywords: ['happy'], fontSize: 40 },
+    { id: 2, url: './img/patrick.jpg', keywords: ['weird', 'happy'], fontSize: 40 },
+    { id: 3, url: './img/pope.jpg', keywords: ['emotional', 'weird'], fontSize: 40 },
+    { id: 4, url: './img/pug.jpg', keywords: ['sad', 'emotional'], fontSize: 40 },
+    { id: 5, url: './img/drevil.jpg', keywords: ['evil'], fontSize: 40 },
+    // { id: 6, url: 'img/trump.jpg', keywords: ['evil'], fontSize: 40 },
+];
+
+var gMeme = {
+    selectedImgId: null,
+
+    txtTop: {
+        align: 'center',
+        y: 50,
+        isShadow: false,
+        fontSize: 40,
+        color: 'white'
+    },
+    txtBottom: {
+        align: 'center',
+        y: 200,
+        isShadow: false,
+        fontSize: 40,
+        color: 'white'
+    }
+}
+
+var gCanvas = {
+    canvas: undefined,
+    ctx: undefined,
+}
+
+// --------------
+//  Initiate
+// --------------
+
+function init() {
+    gCanvas.canvas = document.getElementById('img-canvas');
+    gCanvas.ctx = gCanvas.canvas.getContext('2d');
+    gCanvas.ctx.save();
+
+    // renderKeywordBtns();
+    renderImgGrid();
+    // renderSearchKeywords(KEYWORDS);
+}
+
+// --------------
+//  Gallery Frame
+// --------------
+
+/*
+function renderKeywordBtns() {
+    var keywordCountMap = {};
+    gImgs.forEach(img => {
+        img.keywords.forEach(keyword => {
+            if (keywordCountMap[keyword]) keywordCountMap[keyword]++
+            else keywordCountMap[keyword] = 1;
+        });
+    });
+
+    var strHtml = '';
+    for (var keyword in keywordCountMap) {
+        strHtml += `<button onclick="filterImgs('${keyword}')"
+                    class="clean-btn keyword-btn" style="font-size: .9${keywordCountMap[keyword] *2}rem">${keyword}</button>`;
+    }
+
+    document.querySelector('.btn-keyword-container').innerHTML = strHtml;
+}
+*/
+
+function renderImgGrid() {
+    var strHtml = '';
+
+    gImgs.forEach(img => {
+        strHtml += `<div data-id="${img.id}" style="background-image: url(./${img.url})" onclick="openEditor(${img.id})"></div>`;
+    });
+
+    var elImgsGrid = document.querySelector('.imgs-grid');
+    elImgsGrid.innerHTML = strHtml;
+}
+
+/*
+function renderSearchKeywords(words) {
+    var strHtml = ``;
+    var elKwordsList = document.getElementById('keywords');
+    words.forEach(function (word) {
+        strHtml += `<option value="${word}" label="${word}" />`;
+    })
+    elKwordsList.innerHTML = strHtml;
+}
+*/
+
+function filterImgs(word) {
+    console.log(word);
+    var elImgs = document.querySelectorAll('.imgs-grid div');
+    elImgs.forEach(function (elImg) {
+        var imgObj = gImgs.find(function (img) {
+            return +elImg.getAttribute('data-id') === img.id;
+        })
+        if (word === '') elImg.style.display = 'initial'
+        else if (!imgObj.keywords.includes(word)) {
+            elImg.style.display = 'none';
+        } else {
+            elImg.style.display = 'initial';
+        }
+    })
+}
+
+// --------------
+//  Editor Frame
+// --------------
+
+function openEditor(imgId) {
+    gCanvas.ctx.restore();
+    var clickedImg = gImgs.find(function (img) {
+        return imgId === img.id;
+    });
+    gMeme.img = clickedImg;
+    renderCanvas(clickedImg);
+
+    // toggle view
+    document.querySelector('.back-to-imgs').style.display = 'initial';
+    document.querySelector('.img-gallery').style.display = 'none';
+    document.querySelector('.headings').style.display = 'none';
+    document.querySelector('.editor').style.display = 'flex';
+}
+
+function closeEditor() {
+    // reset design properties
+    gCanvas.ctx.restore();
+    gMeme.txtTop.shadow = false;
+    gMeme.txtTop.fontSize = 40;
+    gMeme.txtTop.align = 'left';
+    gMeme.txtBottom.shadow = false;
+    gMeme.txtBottom.fontSize = 40;
+    gMeme.txtBottom.align = 'left';
+
+    // reset inputs value
+    document.querySelector(`.edit-buttons-top .input-heading`).value = '';
+    document.querySelector(`.edit-buttons-bottom .input-heading`).value = '';
+
+    // reset button groups display && add button
+    document.querySelector('.edit-buttons-top').style.display = 'grid';
+    document.querySelector('.edit-buttons-bottom').style.display = 'none';
+    document.querySelector('.add-heading').style.display = 'initial';
+
+    // toggle view
+    document.querySelector('.back-to-imgs').style.display = 'none';    
+    document.querySelector('.img-gallery').style.display = 'block';
+    document.querySelector('.headings').style.display = 'block';
+    document.querySelector('.editor').style.display = 'none';
+}
+
+// canvas
+
+function renderCanvas(img) {
+    if (gCanvas.ctx) {
+    gCanvas.ctx.clearRect(0, 0, gCanvas.canvas.width, gCanvas.canvas.height);
+    
+        var image = new Image();
+        image.src = img.url;
+        image.onload = function () {
+            // fitImageOn(gCanvas.canvas, image);
+            gCanvas.canvas.height = this.naturalHeight;
+            gCanvas.canvas.width = this.naturalWidth;
+            // console.log(gCanvas.width)
+
+            gCanvas.ctx.drawImage(this, 0,0, gCanvas.canvas.width, gCanvas.canvas.height);
+            // gCanvas.ctx.drawImage(imageObj, 0, 0, canvas.width, canvas.height);
+            
+            
+        }
+    }
+}
+
+function loadImgFromWeb() {
+    var imgUrl = document.getElementById('load-img-web-input').value;
+    var imgFromWeb = {
+        id: gImgs.length,
+        url: imgUrl,
+        keywords: [],
+        fontSize: 40,
+    }
+    gImgs.push(imgFromWeb);
+    openEditor(imgFromWeb.id);
+}
+
+function fitImageOn(canvas, imageObj) {
+    var imageAspectRatio = imageObj.width / imageObj.height;
+    var canvasAspectRatio = canvas.width / canvas.height;
+    var renderableHeight, renderableWidth, xStart, yStart;
+
+    // If image's aspect ratio is less than canvas's we fit on height
+    // and place the image centrally along width
+    if (imageAspectRatio < canvasAspectRatio) {
+        renderableHeight = canvas.height;
+        renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
+        xStart = (canvas.width - renderableWidth) / 2;
+        yStart = 0;
+    }
+
+    // If image's aspect ratio is greater than canvas's we fit on width
+    // and place the image centrally along height
+    else if (imageAspectRatio > canvasAspectRatio) {
+        renderableWidth = canvas.width
+        renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
+        xStart = 0;
+        yStart = (canvas.height - renderableHeight) / 2;
+    }
+
+    // Happy path - keep aspect ratio
+    else {
+        renderableHeight = canvas.height;
+        renderableWidth = canvas.width;
+        xStart = 0;
+        yStart = 0;
+    }
+
+    gCanvas.ctx.drawImage(imageObj, 0, 0, canvas.width, canvas.height);
+};
+
+// canvas-text
+
+function drawTxts() {
+    renderCanvas(gMeme.img);
+    drawSpecificTxt('Top');
+    // drawSpecificTxt('Bottom');
+    
+    setTimeout(drawSpecificTxt, 30, 'Bottom');
+
+    function drawSpecificTxt(topOrBottom) {
+        var currTxt = gMeme[`txt${topOrBottom}`];
+        var inputTxt = document.querySelector(`.edit-buttons-${topOrBottom.toLowerCase()} .input-heading`).value;
+        // Font size inside the canvas
+        // gCanvas.ctx.fillStyle = currTxt.color;
+        
+        
+        // Text align inside the canvas
+        setTimeout(function () {
+            var x;
+            if (currTxt.align === 'left') {
+                x = 50;
+            } else if (currTxt.align === 'center') {
+                x = 100;
+            } else x = 200;
+            
+            if (currTxt.isShadow) {
+                gCanvas.ctx.shadowColor = 'rgba(0,0,0,.5)';
+                gCanvas.ctx.shadowOffsetX = 4;
+                gCanvas.ctx.shadowOffsetY = 4;
+                gCanvas.ctx.shadowBlur = 1;
+                gCanvas.ctx.shadow
+            } else gCanvas.ctx.shadowColor = 'transparent';
+            gCanvas.ctx.font = `${currTxt.fontSize}px Impact`;
+            gCanvas.ctx.strokeStyle = 'black';
+            console.log('currTxt.color', currTxt.color)
+            gCanvas.ctx.fillStyle = currTxt.color;
+            console.log('fillStyle', gCanvas.ctx.fillStyle)
+            gCanvas.ctx.fillText(inputTxt, x, currTxt.y);
+            gCanvas.ctx.strokeText(inputTxt, x, currTxt.y);
+        }, 20)
+    }
+}
+
+function deleteCanvasTxt(selector) {
+    renderCanvas(gMeme.img);
+    if (selector === 'edit-buttons-top') gMeme.txtTop.align = 'left'
+    else gMeme.txtBottom.align = 'left'
+    
+    var elEditBtns = document.querySelector(`.${selector}`);
+    var inputHeading = document.querySelector(`.${selector} .input-heading`);
+    elEditBtns.style.display = 'none';
+    inputHeading.value = '';
+    document.querySelector('.add-heading').style.display = 'initial';
+
+    drawTxts();    
+}
+
+function canvasChangeTxtSize(selector, num) {
+    console.log(selector, num);
+    var inputTxt = document.querySelector(`.edit-buttons-${selector.toLowerCase()} .input-heading`).value;
+    console.log(gMeme[`txt${selector}`].fontSize);
+    if (gMeme[`txt${selector}`].fontSize < 2) gMeme[`txt${selector}`].fontSize += 8;
+    gMeme[`txt${selector}`].fontSize += num;
+    drawTxts();
+}
+
+function canvasTxtColor(txtColor, bottomOrTop) {
+    gMeme[`txt${bottomOrTop}`].color = txtColor;
+    console.log(gMeme);
+    drawTxts();
+}
+
+function toggleShadow(topOrBottom) {
+    var currTxt = gMeme[`txt${topOrBottom}`];
+    if (currTxt.isShadow) currTxt.isShadow = false
+    else currTxt.isShadow = true;
+    drawTxts();
+}
+
+// edit buttons
+
+function addCanvasEditTxt() {
+    var elEditBtnsTop = document.querySelector('.edit-buttons-top');
+    var elEditBtnsBottom = document.querySelector('.edit-buttons-bottom');
+
+    if (elEditBtnsTop.style.display === 'none' && elEditBtnsBottom.style.display === 'none') {
+        console.log('cant see anyone');
+        elEditBtnsTop.style.display = 'grid';        
+        document.querySelector('.add-heading').style.display = 'initial';        
+    } else {
+        console.log('can see 1');        
+        if (elEditBtnsTop.style.display === 'grid') {
+            console.log('can see top');                    
+            elEditBtnsBottom.style.display = 'grid';
+        } else {
+            console.log('can see bottom');                                
+            elEditBtnsTop.style.display = 'grid';
+        }
+        document.querySelector('.add-heading').style.display = 'none';
+    }
+}
+
+function downloadCanvas(link) {
+    link.href = gCanvas.canvas.toDataURL();
+    drawTxts();
+    link.download = 'tenLoPadding.jpeg';
+}

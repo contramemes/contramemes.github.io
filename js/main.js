@@ -160,6 +160,7 @@ function renderCanvas(img) {
             
         }
     }
+    addCanvasEditTxt();
 }
 
 function loadImgFromWeb() {

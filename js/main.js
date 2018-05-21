@@ -202,7 +202,7 @@ function drawTxts() {
                 gCanvas.ctx.shadowBlur = 1;
                 gCanvas.ctx.shadow
             } else gCanvas.ctx.shadowColor = 'transparent';
-            gCanvas.ctx.font = `${currTxt.fontSize}px Impact`;
+            gCanvas.ctx.font = `${currTxt.fontSize}px tungsten-semibold`;
             gCanvas.ctx.strokeStyle = 'black';
             console.log('currTxt.color', currTxt.color);
             gCanvas.ctx.fillStyle = currTxt.color;

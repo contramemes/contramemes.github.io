@@ -7,13 +7,13 @@
 var KEYWORDS = ['ruggeri'];
 
 var gImgs = [
-    { id: 0, url: './img/ruggeri/ruggeri-1.png', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 1, url: './img/ruggeri/ruggeri-2.png', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 2, url: './img/ruggeri/ruggeri-3.png', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 3, url: './img/ruggeri/ruggeri-4.png', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 4, url: './img/ruggeri/ruggeri-5.png', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 5, url: './img/ruggeri/ruggeri-6.png', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 6, url: './img/ruggeri/ruggeri-7.png', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 0, url: './img/ruggeri/ruggeri-1.jpg', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 1, url: './img/ruggeri/ruggeri-2.jpg', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 2, url: './img/ruggeri/ruggeri-3.jpg', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 3, url: './img/ruggeri/ruggeri-4.jpg', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 4, url: './img/ruggeri/ruggeri-5.jpg', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 5, url: './img/ruggeri/ruggeri-6.jpg', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 6, url: './img/ruggeri/ruggeri-7.jpg', keywords: ['ruggeri'], fontSize: 40 },
 ];
 
 var gMeme = {
@@ -58,26 +58,6 @@ function init() {
 //  Gallery Frame
 // --------------
 
-/*
-function renderKeywordBtns() {
-    var keywordCountMap = {};
-    gImgs.forEach(img => {
-        img.keywords.forEach(keyword => {
-            if (keywordCountMap[keyword]) keywordCountMap[keyword]++
-            else keywordCountMap[keyword] = 1;
-        });
-    });
-
-    var strHtml = '';
-    for (var keyword in keywordCountMap) {
-        strHtml += `<button onclick="filterImgs('${keyword}')"
-                    class="clean-btn keyword-btn" style="font-size: .9${keywordCountMap[keyword] *2}rem">${keyword}</button>`;
-    }
-
-    document.querySelector('.btn-keyword-container').innerHTML = strHtml;
-}
-*/
-
 function renderImgGrid() {
     var strHtml = '';
 
@@ -88,17 +68,6 @@ function renderImgGrid() {
     var elImgsGrid = document.querySelector('.imgs-grid');
     elImgsGrid.innerHTML = strHtml;
 }
-
-/*
-function renderSearchKeywords(words) {
-    var strHtml = ``;
-    var elKwordsList = document.getElementById('keywords');
-    words.forEach(function (word) {
-        strHtml += `<option value="${word}" label="${word}" />`;
-    })
-    elKwordsList.innerHTML = strHtml;
-}
-*/
 
 function filterImgs(word) {
     console.log(word);

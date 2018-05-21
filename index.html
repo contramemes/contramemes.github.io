@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Quilmes Contrameme</title>
+    <title>Quilmes | CONTRAMEMES</title>
     <meta name="theme-color" content="#000000">
     <meta property="og:title" content="Quilmes | CONTRAMEMES" />
     <meta property="og:type" content="website" />
@@ -22,79 +22,51 @@
 
     <header>
         <button class="clean-btn back-to-imgs" onclick="closeEditor()"></button>
-        <h2 class="logo">Quilmes</h2>
+        <h2 class="logo">
+            <img src="img/quilmes/logo.png" alt="">
+        </h2>
     </header>
     <main>
         <section class="headings">
-            <h1>CONTRAMEMES</h1>
+            <h1><img src="img/quilmes/contramemes.png" alt=""></h1>
             <h2>1. Elegí tu meme de Ruggeri.<br>
                 2.Creá tu frase de aliento.<br>
                 3. Descargalo y compartilo.
             </h2>
         </section>
-
         <section class="img-gallery container">
-            <!--
-            <div class="input-btns-container">
-                <div class="keywords">
-                    <input type="text" class="search-bar" placeholder="Search memes" name="keyword" list="keywords" onkeyup="filterImgs(this.value)"
-                    />
-                </div>
-                <div class="btn-keyword-container">
-                </div>
-            </div>
-        -->
-
             <div class="imgs-grid">
                 <!-- inject html -->
             </div>
-            <!--
-            <div>
-                <input type="text" id="load-img-web-input" placeholder="Image URL" />
-                <button type="button" class="load-img-web-btn" onclick="loadImgFromWeb()">
-                    Load Image
-                </button>
-            </div>
-            -->
         </section>
-
         <section class="editor container">
             <div class="canvas-container">
                 <canvas id="img-canvas">
                     <canvas class="lower-canvas">
-
                     </canvas>
-                    
                     <canvas class="upper-canvas">
-
                     </canvas>
                 </canvas>
             </div>
-
             <section class="editing">
                 <section class="edit-button-groups">
                     <section class="edit-buttons edit-buttons-top" style="display: grid">
                         <input type="text" id="meme-text" class="input-heading" autofocus="autofocus" onkeyup="drawTxts()" />
-
                         <button class="delete" onclick="deleteCanvasTxt('edit-buttons-top')"></button>
                         <button class="align-left" onclick="gMeme.txtTop.align='left'; drawTxts('Top')"></button>
                         <button class="align-center" onclick="gMeme.txtTop.align='center'; drawTxts('Top')"></button>
                         <button class="align-right" onclick="gMeme.txtTop.align='right'; drawTxts('Top')"></button>
-
                         <input class="color" type="color" onchange="canvasTxtColor(this.value, 'Top')" />
                         <button class="reduce-font" onclick="canvasChangeTxtSize('Top', -1)"></button>
                         <button class="enlarge-font" onclick="canvasChangeTxtSize('Top', 1)"></button>
                         <button class="toggle-shadow" onclick="toggleShadow('Top')"></button>
                     </section>
-
                     <section class="edit-buttons edit-buttons-bottom" style="display: none">
                         <input type="text" id="meme-text" class="input-heading" autofocus="autofocus" onkeyup="drawTxts()" />
-
                         <button class="delete" onclick="deleteCanvasTxt('edit-buttons-bottom')"></button>
                         <button class="align-left" onclick="gMeme.txtBottom.align='left'; drawTxts('Bottom')"></button>
                         <button class="align-center" onclick="gMeme.txtBottom.align='center'; drawTxts('Bottom')"></button>
                         <button class="align-right" onclick="gMeme.txtBottom.align='right'; drawTxts('Bottom')"></button>
-
                         <input class="color" type="color" onchange="canvasTxtColor(this.value, 'Bottom')" />
                         <button class="reduce-font" onclick="canvasChangeTxtSize('Bottom', -1)"></button>
                         <button class="enlarge-font" onclick="canvasChangeTxtSize('Bottom', 1)"></button>
@@ -106,8 +78,6 @@
             </section>
         </section>
     </main>
-
     <script src='js/main.js'></script>
 </body>
-
 </html>

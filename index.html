@@ -49,26 +49,10 @@
             <section class="editing">
                 <section class="edit-button-groups">
                     <section class="edit-buttons edit-buttons-top" style="display: grid">
-                        <input type="text" id="meme-text" class="input-heading" autofocus="autofocus" onkeyup="drawTxts()" />
-                        <button class="delete" onclick="deleteCanvasTxt('edit-buttons-top')"></button>
-                        <button class="align-left" onclick="gMeme.txtTop.align='left'; drawTxts('Top')"></button>
-                        <button class="align-center" onclick="gMeme.txtTop.align='center'; drawTxts('Top')"></button>
-                        <button class="align-right" onclick="gMeme.txtTop.align='right'; drawTxts('Top')"></button>
-                        <input class="color" type="color" onchange="canvasTxtColor(this.value, 'Top')" />
-                        <button class="reduce-font" onclick="canvasChangeTxtSize('Top', -1)"></button>
-                        <button class="enlarge-font" onclick="canvasChangeTxtSize('Top', 1)"></button>
-                        <button class="toggle-shadow" onclick="toggleShadow('Top')"></button>
+                        <input type="text" id="meme-text" class="input-heading first-input" autofocus="autofocus" onkeyup="drawTxts()" placeholder="TEXTO ARRIBA" />
                     </section>
-                    <section class="edit-buttons edit-buttons-bottom" style="display: none">
-                        <input type="text" id="meme-text" class="input-heading" autofocus="autofocus" onkeyup="drawTxts()" />
-                        <button class="delete" onclick="deleteCanvasTxt('edit-buttons-bottom')"></button>
-                        <button class="align-left" onclick="gMeme.txtBottom.align='left'; drawTxts('Bottom')"></button>
-                        <button class="align-center" onclick="gMeme.txtBottom.align='center'; drawTxts('Bottom')"></button>
-                        <button class="align-right" onclick="gMeme.txtBottom.align='right'; drawTxts('Bottom')"></button>
-                        <input class="color" type="color" onchange="canvasTxtColor(this.value, 'Bottom')" />
-                        <button class="reduce-font" onclick="canvasChangeTxtSize('Bottom', -1)"></button>
-                        <button class="enlarge-font" onclick="canvasChangeTxtSize('Bottom', 1)"></button>
-                        <button class="toggle-shadow" onclick="toggleShadow('Bottom')"></button>
+                    <section class="edit-buttons edit-buttons-bottom" style="display: grid">
+                        <input type="text" id="meme-text" class="input-heading" autofocus="autofocus" onkeyup="drawTxts()" placeholder="TEXTO ABAJO" />
                     </section>
                     <button class="add-heading" onclick="addCanvasEditTxt()">ADD HEADING</button>
                 </section>

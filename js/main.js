@@ -7,13 +7,13 @@
 var KEYWORDS = ['ruggeri'];
 
 var gImgs = [
-    { id: 0, url: './img/ruggeri/ruggeri-1.jpg', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 1, url: './img/ruggeri/ruggeri-2.jpg', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 2, url: './img/ruggeri/ruggeri-3.jpg', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 3, url: './img/ruggeri/ruggeri-4.jpg', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 4, url: './img/ruggeri/ruggeri-5.jpg', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 5, url: './img/ruggeri/ruggeri-6.jpg', keywords: ['ruggeri'], fontSize: 40 },
-    { id: 6, url: './img/ruggeri/ruggeri-7.jpg', keywords: ['ruggeri'], fontSize: 40 },
+    { id: 0, url: './img/ruggeri/ruggeri-1.jpg', keywords: ['ruggeri'], fontSize: 40, textTransform: 'uppercase' },
+    { id: 1, url: './img/ruggeri/ruggeri-2.jpg', keywords: ['ruggeri'], fontSize: 40, textTransform: 'uppercase' },
+    { id: 2, url: './img/ruggeri/ruggeri-3.jpg', keywords: ['ruggeri'], fontSize: 40, textTransform: 'uppercase' },
+    { id: 3, url: './img/ruggeri/ruggeri-4.jpg', keywords: ['ruggeri'], fontSize: 40, textTransform: 'uppercase' },
+    { id: 4, url: './img/ruggeri/ruggeri-5.jpg', keywords: ['ruggeri'], fontSize: 40, textTransform: 'uppercase' },
+    { id: 5, url: './img/ruggeri/ruggeri-6.jpg', keywords: ['ruggeri'], fontSize: 40, textTransform: 'uppercase' },
+    { id: 6, url: './img/ruggeri/ruggeri-7.jpg', keywords: ['ruggeri'], fontSize: 40, textTransform: 'uppercase' },
 ];
 
 var gMeme = {
@@ -21,17 +21,19 @@ var gMeme = {
 
     txtTop: {
         align: 'center',
-        y: 50,
+        y: 210,
         isShadow: false,
-        fontSize: 40,
-        color: 'white'
+        fontSize: 20,
+        color: 'white',
+        textTransform: 'uppercase'
     },
     txtBottom: {
         align: 'center',
-        y: 200,
+        y: 230,
         isShadow: false,
-        fontSize: 40,
-        color: 'white'
+        fontSize: 20,
+        color: 'white',
+        textTransform: 'uppercase'
     }
 }
 
@@ -115,10 +117,10 @@ function closeEditor() {
     gCanvas.ctx.restore();
     gMeme.txtTop.shadow = false;
     gMeme.txtTop.fontSize = 40;
-    gMeme.txtTop.align = 'left';
+    gMeme.txtTop.align = 'center';
     gMeme.txtBottom.shadow = false;
     gMeme.txtBottom.fontSize = 40;
-    gMeme.txtBottom.align = 'left';
+    gMeme.txtBottom.align = 'center';
 
     // reset inputs value
     document.querySelector(`.edit-buttons-top .input-heading`).value = '';
@@ -149,18 +151,11 @@ function renderCanvas(img) {
         var image = new Image();
         image.src = img.url;
         image.onload = function () {
-            // fitImageOn(gCanvas.canvas, image);
-            gCanvas.canvas.height = this.naturalHeight;
-            gCanvas.canvas.width = this.naturalWidth;
-            // console.log(gCanvas.width)
-
-            gCanvas.ctx.drawImage(this, 0,0, gCanvas.canvas.width, gCanvas.canvas.height);
-            // gCanvas.ctx.drawImage(imageObj, 0, 0, canvas.width, canvas.height);
-            
-            
+            gCanvas.canvas.height = this.naturalWidth / 1.7;
+            gCanvas.canvas.width = this.naturalWidth / 1.7;
+            gCanvas.ctx.drawImage(this, 0,0, gCanvas.canvas.width, gCanvas.canvas.height);            
         }
     }
-    addCanvasEditTxt();
 }
 
 function loadImgFromWeb() {
@@ -174,40 +169,6 @@ function loadImgFromWeb() {
     gImgs.push(imgFromWeb);
     openEditor(imgFromWeb.id);
 }
-
-function fitImageOn(canvas, imageObj) {
-    var imageAspectRatio = imageObj.width / imageObj.height;
-    var canvasAspectRatio = canvas.width / canvas.height;
-    var renderableHeight, renderableWidth, xStart, yStart;
-
-    // If image's aspect ratio is less than canvas's we fit on height
-    // and place the image centrally along width
-    if (imageAspectRatio < canvasAspectRatio) {
-        renderableHeight = canvas.height;
-        renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
-        xStart = (canvas.width - renderableWidth) / 2;
-        yStart = 0;
-    }
-
-    // If image's aspect ratio is greater than canvas's we fit on width
-    // and place the image centrally along height
-    else if (imageAspectRatio > canvasAspectRatio) {
-        renderableWidth = canvas.width
-        renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
-        xStart = 0;
-        yStart = (canvas.height - renderableHeight) / 2;
-    }
-
-    // Happy path - keep aspect ratio
-    else {
-        renderableHeight = canvas.height;
-        renderableWidth = canvas.width;
-        xStart = 0;
-        yStart = 0;
-    }
-
-    gCanvas.ctx.drawImage(imageObj, 0, 0, canvas.width, canvas.height);
-};
 
 // canvas-text
 
@@ -229,10 +190,10 @@ function drawTxts() {
         setTimeout(function () {
             var x;
             if (currTxt.align === 'left') {
-                x = 50;
+                x = 0;
             } else if (currTxt.align === 'center') {
-                x = 100;
-            } else x = 200;
+                x = 0;
+            } else x = 0;
             
             if (currTxt.isShadow) {
                 gCanvas.ctx.shadowColor = 'rgba(0,0,0,.5)';
@@ -243,9 +204,9 @@ function drawTxts() {
             } else gCanvas.ctx.shadowColor = 'transparent';
             gCanvas.ctx.font = `${currTxt.fontSize}px Impact`;
             gCanvas.ctx.strokeStyle = 'black';
-            console.log('currTxt.color', currTxt.color)
+            console.log('currTxt.color', currTxt.color);
             gCanvas.ctx.fillStyle = currTxt.color;
-            console.log('fillStyle', gCanvas.ctx.fillStyle)
+            console.log('fillStyle', gCanvas.ctx.fillStyle);
             gCanvas.ctx.fillText(inputTxt, x, currTxt.y);
             gCanvas.ctx.strokeText(inputTxt, x, currTxt.y);
         }, 20)
@@ -289,27 +250,6 @@ function toggleShadow(topOrBottom) {
 }
 
 // edit buttons
-
-function addCanvasEditTxt() {
-    var elEditBtnsTop = document.querySelector('.edit-buttons-top');
-    var elEditBtnsBottom = document.querySelector('.edit-buttons-bottom');
-
-    if (elEditBtnsTop.style.display === 'none' && elEditBtnsBottom.style.display === 'none') {
-        console.log('cant see anyone');
-        elEditBtnsTop.style.display = 'grid';        
-        document.querySelector('.add-heading').style.display = 'initial';        
-    } else {
-        console.log('can see 1');        
-        if (elEditBtnsTop.style.display === 'grid') {
-            console.log('can see top');                    
-            elEditBtnsBottom.style.display = 'grid';
-        } else {
-            console.log('can see bottom');                                
-            elEditBtnsTop.style.display = 'grid';
-        }
-        document.querySelector('.add-heading').style.display = 'none';
-    }
-}
 
 function downloadCanvas(link) {
     link.href = gCanvas.canvas.toDataURL();

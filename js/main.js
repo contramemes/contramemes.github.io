@@ -90,6 +90,7 @@ function filterImgs(word) {
 // --------------
 
 function openEditor(imgId) {
+    // DETAIL
     gCanvas.ctx.restore();
     var clickedImg = gImgs.find(function (img) {
         return imgId === img.id;
@@ -101,10 +102,15 @@ function openEditor(imgId) {
     document.querySelector('.back-to-imgs').style.display = 'initial';
     document.querySelector('.img-gallery').style.display = 'none';
     document.querySelector('.headings').style.display = 'none';
+    document.querySelector('.logo').style.display = 'none';
+    document.querySelector('#down-arrow').style.display = 'none';
     document.querySelector('.editor').style.display = 'flex';
+    document.querySelector('footer').style.position = 'relative';
+    document.querySelector('body').style.padding = '0px 0px 0px';
 }
 
 function closeEditor() {
+    // HOME
     // reset design properties
     gCanvas.ctx.restore();
     gMeme.txtTop.shadow = false;
@@ -127,7 +133,11 @@ function closeEditor() {
     document.querySelector('.back-to-imgs').style.display = 'none';    
     document.querySelector('.img-gallery').style.display = 'block';
     document.querySelector('.headings').style.display = 'block';
+    document.querySelector('.logo').style.display = 'block';
+    document.querySelector('#down-arrow').style.display = 'block';
     document.querySelector('.editor').style.display = 'none';
+    document.querySelector('footer').style.position = 'fixed';
+    document.querySelector('body').style.padding = '0px 0px 45px';
 }
 
 // canvas
